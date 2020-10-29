@@ -15,20 +15,33 @@ class NewsController extends Controller
                 array_push($arrForRenderCategory, $one);
             }
         }
-        return view('news.categoryNews', ['news' => $arrForRenderCategory]);
+        return view('categories.categoryNews', [
+            'categories' => $this->categoryList,
+            'lastNewsCategory' => $this->categoryList[0],
+            'newsPerPageBlog' => 4,
+            'arrForNewsBlog' => $arrForRenderCategory,
+            ]);
     }
 
     public function showOne(int $category, int $id)
     {
         $news = $this->getNewsById($id);
         if (!empty($news)){
-            return view('news.showOne' , ['news' => $news]);
+            return view('news.showOne' , [
+                'news' => $news,
+                'categories' => $this->categoryList,
+                'lastNewsCategory' => $this->categoryList[0],
+                'singlePage' => true,
+            ]);
         }
         return redirect()->route('news.category.show', $category);
     }
     private function getNewsById(int $id)
     {
-        foreach ($this->newsList as $one){
+        $allNews = array_merge($this->newsList, $this->homeNewsTopListRight);
+        array_push($allNews, $this->homeNewsTopListLeft);
+
+        foreach ($allNews as $one){
             if ($one['id'] === $id){
                 return $one;
             }

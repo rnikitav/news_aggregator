@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\NewsCategoryController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [\App\Http\Controllers\IndexController::class, 'index']);
+Route::get('/', [IndexController::class, 'index']);
 
 Route::group(['prefix' => 'admin'], function () {
     Route::get('/news', [NewsController::class , 'index'])
@@ -37,3 +38,7 @@ Route::group(['prefix' => 'news'], function (){
 });
 
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
