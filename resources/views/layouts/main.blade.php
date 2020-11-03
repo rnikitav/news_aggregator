@@ -104,6 +104,6 @@
 <script src="{{asset('js/jquery.waypoints.min.js')}}"></script>
 <!-- Main -->
 <script src="{{asset('js/main.js')}}"></script>
-
+@yield('scripts')
 </body>
 </html>

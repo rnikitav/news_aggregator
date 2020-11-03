@@ -10,6 +10,7 @@ class IndexController extends Controller
     {
         $lastNewsCategory = [];
         $arrForNewsMainTopLeft = [];
+        $arrForMostPopular = [];
         // 4 news array
         $arrForNewsMainTopRight = [];
         $arrForNewsBlog = [];
@@ -22,6 +23,10 @@ class IndexController extends Controller
         {
             $arrForNewsMainTopLeft = $this->homeNewsTopListLeft;
         }
+        if (isset($this->arrMostPopular) && !empty($this->arrMostPopular))
+        {
+            $arrForMostPopular = $this->arrMostPopular;
+        }
         if (isset($this->homeNewsTopListRight) && !empty($this->homeNewsTopListRight))
         {
             // TODO массив для главной страницы Блога News пока из главного
@@ -33,6 +38,9 @@ class IndexController extends Controller
 
         return view('home.index', [
             'categories' => $this->categoryList,
+            'mostPopular' => $arrForMostPopular,
+            'trending' => $this->arrTrending,
+            'tags' => $this->arrTags,
             'lastNewsCategory' => $lastNewsCategory,
             'topLeft' => $arrForNewsMainTopLeft,
             'topRight' => $arrForNewsMainTopRight,
