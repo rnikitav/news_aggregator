@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categories;
+use App\Models\News;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -10,53 +12,10 @@ use Illuminate\Routing\Controller as BaseController;
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
-    protected $categoryList = [
-        [
-            'id' => 1,
-            'name' => 'Последние новости',
-            'slug' => 'Latest News',
-        ],
-        [
-            'id' => 2,
-            'name' => 'Спорт',
-            'slug' => 'sport',
-        ],
-        [
-            'id' => 3,
-            'name' => 'Экономика',
-            'slug' => 'economy',
-        ],
-        [
-            'id' => 4,
-            'name' => 'Культура',
-            'slug' => 'culture',
-        ],
-        [
-            'id' => 5,
-            'name' => 'Политика',
-            'slug' => 'politics',
-        ],
-        [
-            'id' => 6,
-            'name' => 'Бизнес',
-            'slug' => 'business',
-        ],
-        [
-            'id' => 7,
-            'name' => 'Развлечения',
-            'slug' => 'entertainment',
-        ],
-        [
-            'id' => 8,
-            'name' => 'Мир',
-            'slug' => 'World',
-        ],
-        [
-            'id' => 9,
-            'name' => 'Здоровье',
-            'slug' => 'Health',
-        ],
-    ];
+    protected $objCategories;
+    protected $objNews;
+
+
     protected $newsList = [
         [
             'id' => 1,
@@ -578,4 +537,15 @@ class Controller extends BaseController
         ],
     ];
     protected $arrTags = ['Business','Sport','Art','Social', 'Technology', 'Education', 'Lifestyle', 'Three', 'Photography'];
+
+    /**
+     * Controller constructor.
+     *
+     */
+    public function __construct()
+    {
+        $this->objCategories = new Categories();
+        $this->objNews = new News();
+    }
+
 }

@@ -4,7 +4,7 @@
             <div class="col-md-8 animate-box" data-animate-effect="fadeInLeft">
                 @if(isset($category) && !empty($category))
                     <div>
-                        <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">News Category {{$category['name']}}</div>
+                        <div class="fh5co_heading fh5co_heading_border_bottom py-2 mb-4">News Category {{$category->name}}</div>
                     </div>
                 @else
                     <div>
@@ -26,7 +26,7 @@
                                 </div>
                             </div>
                             <div class="col-md-7">
-                                <a href="{{ route('news.show' , ['categoryid' => $arrForNewsBlog[$i]['idCategory'], 'id' => $arrForNewsBlog[$i]['id']]) }}" class="fh5co_magna py-2"> {{$arrForNewsBlog[$i]['title']}} </a> <a href="#" class="fh5co_mini_time py-3"> Thomson Smith -
+                                <a href="{{ route('news.show' , ['categoryid' => $arrForNewsBlog[$i]->idCategory, 'id' => $arrForNewsBlog[$i]->id]) }}" class="fh5co_magna py-2"> {{$arrForNewsBlog[$i]->title}} </a> <a href="#" class="fh5co_mini_time py-3"> Thomson Smith -
                                     April 18,2016 </a>
                                 <div class="fh5co_consectetur"> Quis nostrud xercitation ullamco laboris nisi aliquip ex ea commodo
                                     consequat.

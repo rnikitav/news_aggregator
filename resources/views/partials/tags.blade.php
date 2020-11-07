@@ -1,5 +1,5 @@
 <div class="fh5co_tags_all">
     @foreach($tags as $one)
-    <a href="#" class="fh5co_tagg">{{$one}}</a>
+    <a href="#" class="fh5co_tagg">{{$one->name}}</a>
     @endforeach
 </div>

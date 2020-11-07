@@ -15,7 +15,17 @@ class NewsController extends Controller
      */
     public function index()
     {
-        //
+        $news = $this->objNews->getAllNews();
+        $fileName = storage_path('app/news.txt');
+        if(file_exists($fileName)) {
+            $file = file_get_contents($fileName);
+            $newsFile = json_decode($file, true);
+        }
+        if(isset($newsFile) && !empty($newsFile)) {
+            $news = $newsFile;
+        }
+
+        return  view('admin.news.index', ['news' => $news]);
     }
 
     /**

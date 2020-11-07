@@ -4,13 +4,13 @@
         <div class="row mx-0">
         @if(!empty($topLeft))
             <div class="col-md-6 col-12 paddding animate-box" data-animate-effect="fadeIn">
-                <div class="fh5co_suceefh5co_height"><img src="images/{{$topLeft['img']}}" alt="img"/>
+                <div class="fh5co_suceefh5co_height"><img src="images/{{$topLeft->img}}" alt="img"/>
                     <div class="fh5co_suceefh5co_height_position_absolute"></div>
                     <div class="fh5co_suceefh5co_height_position_absolute_font">
                         <div class=""><a href="#" class="color_fff"> <i class="fa fa-clock-o"></i>&nbsp;&nbsp;Dec 31,2017
                             </a></div>
                         <div class="width75">
-                            <a href="{{ route('news.show' , ['categoryid' => $topLeft['idCategory'], 'id' => $topLeft['id']]) }}" class="fh5co_good_font"> {{$topLeft['title']}}</a>
+                            <a href="{{ route('news.show' , ['categoryid' => $topLeft->idCategory, 'id' => $topLeft->id]) }}" class="fh5co_good_font"> {{$topLeft->title}}</a>
                         </div>
                     </div>
                 </div>
@@ -21,12 +21,12 @@
                 <div class="row">
                     @forelse($topRight as $value)
                         <div class="col-md-6 col-6 paddding animate-box" data-animate-effect="fadeIn">
-                            <div class="fh5co_suceefh5co_height_2"><img src="images/{{$value['img']}}" alt="img"/>
+                            <div class="fh5co_suceefh5co_height_2"><img src="images/{{$value->img}}" alt="img"/>
                                 <div class="fh5co_suceefh5co_height_position_absolute"></div>
                                 <div class="fh5co_suceefh5co_height_position_absolute_font_2">
-                                    <div class=""><a href="#" class="color_fff"> <i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{\Carbon\Carbon::createFromDate($value['created_at'])}}</a></div>
+                                    <div class=""><a href="#" class="color_fff"> <i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{\Carbon\Carbon::createFromDate($value->created_at)}}</a></div>
                                     <div class="width75">
-                                        <a class="fh5co_good_font_2" href="{{ route('news.show' , ['categoryid' => $value['idCategory'], 'id' => $value['id']]) }}">{{$value['title']}}</a></p>
+                                        <a class="fh5co_good_font_2" href="{{ route('news.show' , ['categoryid' => $value->idCategory, 'id' => $value->id]) }}">{{$value->title}}</a>
 {{--                                        <a href="single.html" class="fh5co_good_font_2"> After all is said and done, <br>more is said than done </a>--}}
                                     </div>
                                 </div>
@@ -40,14 +40,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-
-
-
-
     @include('partials.trending')
     <div class="container-fluid pb-4 pt-5">
         <div class="container animate-box">
@@ -59,7 +51,7 @@
                     <div class="fh5co_hover_news_img">
                         <div class="fh5co_news_img"><img src="images/39-324x235.jpg" alt=""/></div>
                         <div>
-                            <a href="single.html" class="d-block fh5co_small_post_heading"><span class="">The top 10 best computer speakers in the market</span></a>
+                            <a href="/" class="d-block fh5co_small_post_heading"><span class="">The top 10 best computer speakers in the market</span></a>
                             <div class="c_g"><i class="fa fa-clock-o"></i> Oct 16,2017</div>
                         </div>
                     </div>

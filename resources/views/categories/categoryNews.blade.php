@@ -7,4 +7,7 @@
                 :tags="$tags">
 
     </x-newsBlog>
+    @if(isset($newsTrending) and !empty($newsTrending))
+        <x-trending :newsTrending="$newsTrending"></x-trending>
+    @endif
 @stop

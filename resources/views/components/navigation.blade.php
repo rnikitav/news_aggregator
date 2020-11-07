@@ -16,7 +16,7 @@
                            aria-haspopup="true" aria-expanded="false">Categories <span class="sr-only">(current)</span></a>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink_1">
                             @foreach($categories as $one)
-                            <a class="dropdown-item" href="{{ route('news.category.show' , ['categoryid' => $one['id']]) }}">{{$one['name']}}</a>
+                            <a class="dropdown-item" href="{{ route('news.category.show' , ['categoryid' => $one->id]) }}">{{$one->name}}</a>
                             @endforeach
                         </div>
                     </li>

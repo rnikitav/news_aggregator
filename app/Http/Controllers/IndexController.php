@@ -3,48 +3,33 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
+    protected $tableForTags = "tags";
+
     public function index()
     {
-        $lastNewsCategory = [];
-        $arrForNewsMainTopLeft = [];
-        $arrForMostPopular = [];
-        // 4 news array
-        $arrForNewsMainTopRight = [];
-        $arrForNewsBlog = [];
-        foreach ($this->categoryList as $one){
-            if (is_array($one) && $one['slug'] == 'Latest News'){
-                $lastNewsCategory = $one;
-            }
-        }
-        if (isset($this->homeNewsTopListLeft) && !empty($this->homeNewsTopListLeft))
-        {
-            $arrForNewsMainTopLeft = $this->homeNewsTopListLeft;
-        }
-        if (isset($this->arrMostPopular) && !empty($this->arrMostPopular))
-        {
-            $arrForMostPopular = $this->arrMostPopular;
-        }
-        if (isset($this->homeNewsTopListRight) && !empty($this->homeNewsTopListRight))
-        {
-            // TODO массив для главной страницы Блога News пока из главного
-            $arrForNewsMainTopRight = $this->homeNewsTopListRight;
-            $arrForNewsBlog = $this->homeNewsTopListRight;
-        }
-
+        $categoriesList = $this->objCategories->getAllCategories();
+        $lastNewsCategory = $this->objCategories->getCategoryBySlug('Latest News');
+        $newsMainTopLeft = $this->objNews->getLastNews();
+        $newsMainTopRight = $this->objNews->getLatestNewsForRightTopBlog();
+        $newsMostPopular = $this->objNews->getMostPopularNewsByCount(4);
+        $newsBlog = $this->objNews->getRandomNewsByCount(4);
+        $newsTrending = $this->objNews->getMostTrendingNewsByCount(5);
+        $tagsList = DB::table($this->tableForTags)->get();
 
 
         return view('home.index', [
-            'categories' => $this->categoryList,
-            'mostPopular' => $arrForMostPopular,
-            'trending' => $this->arrTrending,
-            'tags' => $this->arrTags,
+            'categories' => $categoriesList,
+            'mostPopular' => $newsMostPopular,
+            'trending' => $newsTrending,
+            'tags' => $tagsList,
             'lastNewsCategory' => $lastNewsCategory,
-            'topLeft' => $arrForNewsMainTopLeft,
-            'topRight' => $arrForNewsMainTopRight,
-            'arrForNewsBlog' => $arrForNewsBlog,
+            'topLeft' => $newsMainTopLeft,
+            'topRight' => $newsMainTopRight,
+            'arrForNewsBlog' => $newsBlog,
             'newsPerPageBlog' => 4,
         ]);
     }

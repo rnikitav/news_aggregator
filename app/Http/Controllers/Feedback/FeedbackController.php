@@ -16,17 +16,7 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        $news = $this->news;
-        $fileName = storage_path('app/news.txt');
-        if(file_exists($fileName)) {
-            $file = file_get_contents($fileName);
-            $newsFile = json_decode($file, true);
-        }
-        if(isset($newsFile) && !empty($newsFile)) {
-            $news = $newsFile;
-        }
 
-        return  view('admin.news.index', ['news' => $news]);
     }
 
     /**
@@ -36,9 +26,11 @@ class FeedbackController extends Controller
      */
     public function create()
     {
+        $allCategories = $this->objCategories->getAllCategories();
+        $lastNewsCategory = $this->objCategories->getCategoryBySlug('Latest News');
         return view('feedback.create', [
-            'categories' => $this->categoryList,
-            'lastNewsCategory' => $this->categoryList[0],
+            'categories' => $allCategories,
+            'lastNewsCategory' => $lastNewsCategory,
         ]);
     }
 
@@ -55,11 +47,6 @@ class FeedbackController extends Controller
             'email' => 'required',
             'description' => 'required'
         ]);
-//        $res = $request->validate([
-//            'name' => 'required',
-//            'email'=> 'required',
-//            'description' => 'required'
-//        ]);
         if ($validator->fails()) {
             return redirect('feedback/create')
                 ->withErrors($validator)

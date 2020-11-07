@@ -29,8 +29,8 @@
                 <ul class="footer_menu">
                     @for($i = 1; $i < 9; $i++)
                         @isset($categories[$i])
-                            <li><a href="{{ route('news.category.show' , ['categoryid' => $categories[$i]['id']]) }}">
-                                    <i class="fa fa-angle-right"></i>&nbsp;&nbsp; {{$categories[$i]['name']}}
+                            <li><a href="{{ route('news.category.show' , ['categoryid' => $categories[$i]->id]) }}">
+                                    <i class="fa fa-angle-right"></i>&nbsp;&nbsp; {{$categories[$i]->name}}
                                 </a></li>
                         @endisset
                     @endfor
@@ -76,10 +76,10 @@
             <div class="col-12 col-md-6 py-4 Reserved"> © Copyright 2018, All rights reserved. Design by <a href="https://freehtml5.co" title="Free HTML5 Bootstrap templates">FreeHTML5.co</a>. </div>
             <div class="col-12 col-md-6 spdp_right py-4">
                 <a href="/" class="footer_last_part_menu">Home</a>
-                <a href="Contact_us.html" class="footer_last_part_menu">About</a>
-                <a href="Contact_us.html" class="footer_last_part_menu">Contact</a>
-                @if(count($lastNewsCategory ) > 0)
-                <a href="{{ route('news.category.show' , ['categoryid' => $lastNewsCategory['id']]) }}" class="footer_last_part_menu">{{$lastNewsCategory['name']}}</a></div>
+                <a href="/" class="footer_last_part_menu">About</a>
+                <a href="/feedback/create" class="footer_last_part_menu">Contact</a>
+                @if(isset($lastNewsCategory ))
+                <a href="{{ route('news.category.show' , ['categoryid' => $lastNewsCategory->id]) }}" class="footer_last_part_menu">{{$lastNewsCategory->name}}</a></div>
                 @else
                 @endif
         </div>
