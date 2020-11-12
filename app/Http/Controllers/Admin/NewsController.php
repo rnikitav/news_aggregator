@@ -15,16 +15,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = $this->objNews->getAllNews();
-        $fileName = storage_path('app/news.txt');
-        if(file_exists($fileName)) {
-            $file = file_get_contents($fileName);
-            $newsFile = json_decode($file, true);
-        }
-        if(isset($newsFile) && !empty($newsFile)) {
-            $news = $newsFile;
-        }
-
+        $news = News::orderBy('id', 'desc')->paginate(5);
         return  view('admin.news.index', ['news' => $news]);
     }
 
@@ -46,7 +37,23 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'idCategory' => 'required',
+            'source_id' => 'required',
+            'title' => 'required',
+            'desc' => 'required',
+            'body' => 'required',
+            'is_private' => 'required',
+        ]);
+
+        $data = $request->only(['idCategory', 'source_id', 'title', 'desc', 'img', 'body', 'is_private']);
+        $data['slug'] = $data['title'];
+        $create = News::create($data);
+        if ($create) {
+            return back()->with('success', 'Новость успешно добавлена');
+        }
+
+        return back()->with('fail', 'Не удалось добавить новость');
     }
 
     /**
@@ -68,7 +75,8 @@ class NewsController extends Controller
      */
     public function edit(News $news)
     {
-        //
+        dd($news);
+        return view('admin.news.edit', ['news' => $news]);
     }
 
     /**
@@ -80,7 +88,22 @@ class NewsController extends Controller
      */
     public function update(Request $request, News $news)
     {
-        //
+        $request->validate([
+            'idCategory' => 'required',
+            'source_id' => 'required',
+            'title' => 'required',
+            'desc' => 'required',
+            'body' => 'required',
+            'is_private' => 'required',
+        ]);
+        $data = $request->only(['idCategory', 'source_id', 'title', 'desc', 'img', 'body', 'is_private']);
+        $data['slug'] = $data['title'];
+        $news->fill($data);
+        if($news->save()) {
+            return redirect()->route('news.index');
+        }
+
+        return back();
     }
 
     /**
@@ -91,6 +114,8 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        //
+        $news->delete();
+        return redirect()->route('news.index');
+//        return response()->json(['data' => 'delete']);
     }
 }

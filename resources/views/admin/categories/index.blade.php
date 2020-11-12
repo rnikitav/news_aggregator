@@ -1,18 +1,17 @@
 @extends('layouts.app')
 @section('content')
     <div class="col-12 offset-2">
-        <a href="{{ route('news.create') }}" class="btn btn-success">Добавить новость</a>
-        {{--        <a href="javascript:;" class="deleteData" rel="9">Drop</a>--}}
-        @forelse($news as $newsItem)
-            <h4><a href="{{ route('news.edit', ['news' => $newsItem]) }}">{{ $newsItem->title }}</a> -
-                {{ $newsItem->updated_at->format('Y d-m (H:i)') }}
-                &nbsp; <a href="javascript:;" style="color:red;" class="delete" rel="{{ $newsItem->id }}">Удалить</a></h4>
+        <a href="{{ route('categories.create') }}" class="btn btn-success">Добавить категорию</a>
+        @forelse($categories as $categoryItem)
+            <h4><a href="{{ route('categories.edit', ['category' => $categoryItem]) }}">{{ $categoryItem->name }}</a> -
+                {{ $categoryItem->updated_at->format('Y d-m (H:i)') }}
+                &nbsp; <a href="javascript:;" style="color:red;" class="delete" rel="{{ $categoryItem->id }}">Удалить</a></h4>
         @empty
             <h3>Новостей нет</h3>
         @endforelse
 
         <br>
-        {{ $news->links() }}
+        {{ $categories->links() }}
     </div>
 @stop
 @push('js')
@@ -24,10 +23,10 @@
                 return body;
             };
             const button = document.querySelectorAll(".delete");
-            button.forEach(el =>{
+            button.forEach(el => {
                 el.addEventListener("click", function () {
                     if(confirm("Вы подтверждаете удаление ?")) {
-                        fetchData("{{ url('/admin/news') }}/" + this.getAttribute('rel'), {
+                        fetchData("{{ url('/admin/categories') }}/" + this.getAttribute('rel'), {
                             method: "DELETE",
                             headers: {
                                 'Content-Type': 'application/json; charset=utf-8',
@@ -38,7 +37,7 @@
                         })
                     }
                 });
-            });
+            })
 
         });
     </script>

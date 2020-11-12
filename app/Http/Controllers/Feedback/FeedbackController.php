@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Feedback;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
 use App\Models\Feedback;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -26,8 +27,8 @@ class FeedbackController extends Controller
      */
     public function create()
     {
-        $allCategories = $this->objCategories->getAllCategories();
-        $lastNewsCategory = $this->objCategories->getCategoryBySlug('Latest News');
+        $allCategories = Category::all();
+        $lastNewsCategory = Category::where(['slug' => 'Latest News'])->firstOrFail();
         return view('feedback.create', [
             'categories' => $allCategories,
             'lastNewsCategory' => $lastNewsCategory,

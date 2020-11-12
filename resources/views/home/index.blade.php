@@ -24,7 +24,10 @@
                             <div class="fh5co_suceefh5co_height_2"><img src="images/{{$value->img}}" alt="img"/>
                                 <div class="fh5co_suceefh5co_height_position_absolute"></div>
                                 <div class="fh5co_suceefh5co_height_position_absolute_font_2">
-                                    <div class=""><a href="#" class="color_fff"> <i class="fa fa-clock-o"></i>&nbsp;&nbsp;{{\Carbon\Carbon::createFromDate($value->created_at)}}</a></div>
+                                    <div class="">
+                                        <a href="#" class="color_fff"> <i class="fa fa-clock-o"></i>&nbsp;&nbsp;
+                                            {{$value->created_at->format('M d,Y')}}
+                                        </a></div>
                                     <div class="width75">
                                         <a class="fh5co_good_font_2" href="{{ route('news.show' , ['categoryid' => $value->idCategory, 'id' => $value->id]) }}">{{$value->title}}</a>
 {{--                                        <a href="single.html" class="fh5co_good_font_2"> After all is said and done, <br>more is said than done </a>--}}
@@ -203,6 +206,7 @@
                 :newsPerPageBlog="$newsPerPageBlog"
                 :mostPopular="$mostPopular"
                 :tags="$tags"
+                :paginateForPage="$paginateForPage"
     ></x-newsBlog>
 @stop
 

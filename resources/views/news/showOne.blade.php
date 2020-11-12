@@ -5,7 +5,7 @@
     <div class="overlay"></div>
     <div class="page-title">
         <img src="{{asset('images/person_1.jpg')}}" alt="Free HTML5 by FreeHTMl5.co">
-        <span>{{$news->created_at}}</span>
+        <span>{{$news->created_at->format('F j, Y')}}</span>
         <h2>{{$news->title}}</h2>
     </div>
 </div>

@@ -1,6 +1,13 @@
 .width75 {
     width: 75%;
 }
+.noHover {
+    background: #f5bc04!important;
+    color: #222;
+    padding: 12px 20px!important;
+    font-weight: 800;
+    margin: 0 10px;
+}
 .mostPopularA {
     color: #292b2c!important;
 }
@@ -5254,6 +5261,7 @@ input[type=button].btn-block {
     display: flex;
     padding-left: 0;
     list-style: none;
+    align-items: center;
     border-radius: 0.25rem;
 }
 

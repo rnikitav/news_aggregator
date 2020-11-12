@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\NewsController;
 use App\Http\Controllers\Feedback\FeedbackController;
 use App\Http\Controllers\IndexController;
@@ -21,12 +22,13 @@ Route::get('/', [IndexController::class, 'index']);
 
 Route::group(['prefix' => 'admin'], function () {
     Route::resource('/news', NewsController::class);
+    Route::resource('/categories', CategoryController::class);
 });
 Route::resource('feedback', FeedbackController::class);
 
 Route::group(['prefix' => 'news'], function (){
     Route::get('/', [NewsCategoryController::class , 'index'])->name('news');
-    Route::get('/{categoryid}', [\App\Http\Controllers\NewsController::class, 'index'])
+    Route::get('/{categoryid}', [NewsCategoryController::class, 'index'])
         ->where('category', '\d+')->name('news.category.show');
     Route::get('/{categoryid}/{id}', [\App\Http\Controllers\NewsController::class , 'showOne'])
         ->where('id', '\d+')->name('news.show');
