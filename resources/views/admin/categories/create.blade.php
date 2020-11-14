@@ -12,14 +12,14 @@
         <br>
         <form method="post" action="{{ route('categories.store') }}">
             @csrf
-            <p>Заголовок: <br><input class="form-control" name="name" value="{{ old('name') }}" >
+            <p>Заголовок: <br><input class="form-control" name="name" value="{{ old('name') }}" ></p>
+            @error('name') <div class="alert alert-danger">
+                @foreach($errors->get('name') as $error)
+                    {{$error}}
+                @endforeach
+            </div>
+            @enderror
                 <br>
-                {{--            @error('title') <div class="alert alert-danger">--}}
-                {{--                @foreach($errors->get('title') as $error)--}}
-                {{--                    {{ $error }}--}}
-                {{--                @endforeach--}}
-                {{--            </div>--}}
-                {{--            @enderror--}}
             <button class="btn btn-success" type="submit">Добавить</button>
         </form>
     </div>

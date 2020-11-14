@@ -20,6 +20,7 @@ class NewsCategoryController extends Controller
         $lastNewsCategory = Category::where(['slug' => 'Latest News'])->firstOrFail();
         $newsList = $categoryCollection->newsListByCategory()->paginate(1);
 
+
         return view('categories.categoryNews', [
             'categories' => $allCategories,
             'tags' => $tagsList,

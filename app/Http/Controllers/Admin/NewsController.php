@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\NewsCreate;
+use App\Http\Requests\NewsUpdate;
 use App\Models\News;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class NewsController extends Controller
 {
@@ -35,22 +38,13 @@ class NewsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NewsCreate $request)
     {
-        $request->validate([
-            'idCategory' => 'required',
-            'source_id' => 'required',
-            'title' => 'required',
-            'desc' => 'required',
-            'body' => 'required',
-            'is_private' => 'required',
-        ]);
-
-        $data = $request->only(['idCategory', 'source_id', 'title', 'desc', 'img', 'body', 'is_private']);
+        $data = $request->validated();
         $data['slug'] = $data['title'];
         $create = News::create($data);
         if ($create) {
-            return back()->with('success', 'Новость успешно добавлена');
+            return redirect()->route('news.index')->with('success', 'Новость успешно добавлена');
         }
 
         return back()->with('fail', 'Не удалось добавить новость');
@@ -75,7 +69,6 @@ class NewsController extends Controller
      */
     public function edit(News $news)
     {
-        dd($news);
         return view('admin.news.edit', ['news' => $news]);
     }
 
@@ -86,18 +79,10 @@ class NewsController extends Controller
      * @param  \App\Models\News  $news
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, News $news)
+    public function update(NewsUpdate $request, News $news)
     {
-        $request->validate([
-            'idCategory' => 'required',
-            'source_id' => 'required',
-            'title' => 'required',
-            'desc' => 'required',
-            'body' => 'required',
-            'is_private' => 'required',
-        ]);
-        $data = $request->only(['idCategory', 'source_id', 'title', 'desc', 'img', 'body', 'is_private']);
-        $data['slug'] = $data['title'];
+        $data = $request->validated();
+        $data['slug'] = Str::slug($data['title']);
         $news->fill($data);
         if($news->save()) {
             return redirect()->route('news.index');
