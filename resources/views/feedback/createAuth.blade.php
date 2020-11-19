@@ -14,7 +14,7 @@
                 <h3>{{ session('success') }}</h3>
             </div>
         @endif
-            @if (session('fail'))
+        @if (session('fail'))
             <div class="alert alert-success">
                 <h3>{{ session('fail') }}</h3>
             </div>
@@ -29,17 +29,10 @@
                 <div class="col-12 col-md-6">
                     <form method="post" class="row" id="fh5co_contact_form" action="{{route('feedback.store')}}">
                         @csrf
-
-                        <div class="col-6 py-3">
-                            <input type="text" class="form-control fh5co_contact_text_box"
-                                   name="email" value="{{old('email')}}" placeholder="E-mail" />
-                        </div>
-                        @error('email') <div class="alert alert-danger">
-                            @foreach($errors->get('email') as $error)
-                                {{$error}}
-                            @endforeach
-                        </div>
-                        @enderror
+                        <input type="hidden" value="{{$user_id}}"
+                               name="user_id" />
+                        <input type="hidden" value="{{$email}}"
+                               name="email" />
                         <div class="col-6 py-3">
                             <input type="text" class="form-control fh5co_contact_text_box"
                                    name="subject" value="{{old('subject')}}" placeholder="Subject" />
@@ -63,7 +56,7 @@
                                             <textarea class="form-control fh5co_contacts_message"
                                                       name="description"
                                                       rows="10"
-                                                      placeholder="Message"></textarea>
+                                                      placeholder="Описание"></textarea>
                                 @endif
 
                         </div>

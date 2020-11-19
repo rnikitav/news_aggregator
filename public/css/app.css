@@ -15,6 +15,10 @@
     color: #f5bc04!important;
 }
 
+.drop-static {
+    position: absolute!important;
+}
+
 @import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
 
 /*!

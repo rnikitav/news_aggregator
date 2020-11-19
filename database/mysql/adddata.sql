@@ -27,3 +27,8 @@ INSERT INTO categories (name, slug) VALUES
 ('Развлечения', 'entertainment'),
 ('Мир', 'World'),
 ('Здоровье', 'Health');
+
+
+INSERT INTO users (firstname, lastname, email, `password`, is_admin ) VALUES
+('admin', 'admin', 'admin@email.com', '123', 1),
+('notauthorized', 'notauthorized', 'noemail', 'nopass', 0);

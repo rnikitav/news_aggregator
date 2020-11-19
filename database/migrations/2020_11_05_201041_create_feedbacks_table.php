@@ -16,10 +16,10 @@ class CreateFeedbacksTable extends Migration
         Schema::create('feedbacks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
-                ->default(1)
+                ->default(2)
                 ->constrained('users')
                 ->onUpdate('cascade');
-            $table->string('email')->nullable();
+            $table->string('email');
             $table->string('subject')->nullable();
             $table->text('description');
             $table->timestamp('created_at')->useCurrent();

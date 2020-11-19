@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('lastname')->nullable();
             $table->string('email')->unique();
             $table->string('password');
+            $table->boolean('is_admin')->default(false);
             $table->unsignedBigInteger('phone')->nullable();
             $table->enum('gender', ['f', 'm'])->nullable();
             $table->date('birthday')->nullable();
@@ -26,7 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('photo')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
-            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp();
         });
     }
 

@@ -18,11 +18,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [IndexController::class, 'index']);
+Route::get('/', [IndexController::class, 'index'])->name('main');
 
-Route::group(['prefix' => 'admin'], function () {
-    Route::resource('/news', NewsController::class);
-    Route::resource('/categories', CategoryController::class);
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::group(['prefix' => 'account', ], function () {
+        Route::get('/', [App\Http\Controllers\Account\IndexController::class, 'index'])
+            ->name('account');
+    });
+    Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
+        Route::resource('/news', NewsController::class);
+        Route::resource('/categories', CategoryController::class);
+        Route::resource('/users', \App\Http\Controllers\Admin\UserController::class);
+    });
 });
 Route::resource('feedback', FeedbackController::class);
 

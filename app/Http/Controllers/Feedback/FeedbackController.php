@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Feedback;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Feedback\FeedbackStore;
 use App\Models\Category;
 use App\Models\Feedback;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class FeedbackController extends Controller
 {
@@ -29,6 +32,15 @@ class FeedbackController extends Controller
     {
         $allCategories = Category::all();
         $lastNewsCategory = Category::where(['slug' => 'Latest News'])->firstOrFail();
+        if (Auth::user())
+        {
+            return view('feedback.createAuth', [
+                'categories' => $allCategories,
+                'lastNewsCategory' => $lastNewsCategory,
+                'user_id' => Auth::user()->getAuthIdentifier(),
+                'email' => Auth::user()->email,
+            ]);
+        }
         return view('feedback.create', [
             'categories' => $allCategories,
             'lastNewsCategory' => $lastNewsCategory,
@@ -41,30 +53,18 @@ class FeedbackController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FeedbackStore $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required',
-            'description' => 'required'
-        ]);
-        if ($validator->fails()) {
-            return redirect('feedback/create')
-                ->withErrors($validator)
-                ->withInput()
-                ->with('error', 'Отзыв не отправлен обязательные поля Name , email, Description');
+        $data = $request->validated();
+        if (!$data['email']){
+            $data['email'] = 'noEmail';
         }
-        $data = $request->only(['name', 'email', 'title', 'description']);
+        $create = Feedback::create($data);
+        if ($create) {
+            return redirect()->route('feedback.create')->with('success', 'Отзыв успешно добавлен');
+        }
 
-        $saveFile = function(array $data) {
-            $fileNews = storage_path('app/feedback.txt');
-            file_put_contents($fileNews, PHP_EOL. json_encode($data), FILE_APPEND);
-        };
-
-        $saveFile($data);
-//        return redirect()->back();
-//        return Redirect::to('/feedback/create')->isInformational('dasdas');
-        return redirect()->route('feedback.create')->with('status', 'Отзыв отправлен');
+        return back()->with('fail', 'Не удалось добавить отзыв');
 
     }
 
