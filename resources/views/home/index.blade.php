@@ -4,7 +4,7 @@
         <div class="row mx-0">
         @if(!empty($topLeft))
             <div class="col-md-6 col-12 paddding animate-box" data-animate-effect="fadeIn">
-                <div class="fh5co_suceefh5co_height"><img src="images/{{$topLeft->img}}" alt="img"/>
+                <div class="fh5co_suceefh5co_height"><img src="{{$topLeft->img}}" alt="img"/>
                     <div class="fh5co_suceefh5co_height_position_absolute"></div>
                     <div class="fh5co_suceefh5co_height_position_absolute_font">
                         <div class=""><a href="#" class="color_fff"> <i class="fa fa-clock-o"></i>&nbsp;&nbsp;Dec 31,2017
@@ -21,7 +21,7 @@
                 <div class="row">
                     @forelse($topRight as $value)
                         <div class="col-md-6 col-6 paddding animate-box" data-animate-effect="fadeIn">
-                            <div class="fh5co_suceefh5co_height_2"><img src="images/{{$value->img}}" alt="img"/>
+                            <div class="fh5co_suceefh5co_height_2"><img src="{{$value->img}}" alt="img"/>
                                 <div class="fh5co_suceefh5co_height_position_absolute"></div>
                                 <div class="fh5co_suceefh5co_height_position_absolute_font_2">
                                     <div class="">

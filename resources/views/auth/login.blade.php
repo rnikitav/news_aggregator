@@ -56,7 +56,12 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('login&reg.login.title') }}
                                 </button>
-
+                                <a style="font-size: 20px" href="{{route('social.login', ['service' => 'facebook'])}}">
+                                    <i class=" fab fa-facebook"></i>
+                                </a>
+                                <a style="font-size: 20px" href="{{route('social.login', ['service' => 'vkontakte'])}}" >
+                                    <i class="fab fa-vk"></i>
+                                </a>
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('login&reg.login.Forgot Your Password') }}

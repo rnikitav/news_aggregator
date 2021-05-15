@@ -43,7 +43,7 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('myGuest');
+        $this->middleware('guest');
     }
 
     /**
@@ -85,10 +85,6 @@ class RegisterController extends Controller
         $data = $request->validated();
         event(new Registered($user = $this->create($data)));
 
-        if (Auth::user()->is_admin === true)
-        {
-            return redirect()->route('users.index');
-        }
         $this->guard()->login($user);
 
         if ($response = $this->registered($request, $user)) {

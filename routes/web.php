@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\ParserController;
 use App\Http\Controllers\Feedback\FeedbackController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\NewsCategoryController;
+use App\Http\Controllers\Social\SocialController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,6 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('/news', NewsController::class);
         Route::resource('/categories', CategoryController::class);
         Route::resource('/users', \App\Http\Controllers\Admin\UserController::class);
+        Route::get('/parser', [ParserController::class, 'index'])->name('parser');
+        Route::post('/parser/create', [ParserController::class, 'storeNews'],)->name('parser.store');
     });
 });
 Route::resource('feedback', FeedbackController::class);
@@ -47,3 +51,11 @@ Route::group(['prefix' => 'news'], function (){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::group(['middleware' => 'guest'], function (){
+    Route::group(['prefix' => 'login'], function (){
+        Route::get('{service}', [SocialController::class, 'redirectToProvider'])->name('social.login');
+        Route::get('{service}/callback', [SocialController::class, 'handleProviderCallback']);
+    });
+});

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Events\CreateNewsEvent;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\NewsCreate;
 use App\Http\Requests\NewsUpdate;
@@ -18,7 +19,7 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = News::orderBy('id', 'desc')->paginate(5);
+        $news = News::orderBy('id', 'desc')->paginate();
         return  view('admin.news.index', ['news' => $news]);
     }
 
@@ -44,6 +45,7 @@ class NewsController extends Controller
         $data['slug'] = $data['title'];
         $create = News::create($data);
         if ($create) {
+            event(new CreateNewsEvent($create));
             return redirect()->route('news.index')->with('success', 'Новость успешно добавлена');
         }
 

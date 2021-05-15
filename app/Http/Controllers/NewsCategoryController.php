@@ -18,7 +18,7 @@ class NewsCategoryController extends Controller
         $newsMostPopular = News::orderBy('views', 'desc')->take($this->paginateNewsCount)->get();
         $newsTrending = News::orderBy('likes', 'desc')->take($this->paginateNewsCount)->get();;
         $lastNewsCategory = Category::where(['slug' => 'Latest News'])->firstOrFail();
-        $newsList = $categoryCollection->newsListByCategory()->paginate(1);
+        $newsList = $categoryCollection->newsListByCategory()->paginate(5);
 
 
         return view('categories.categoryNews', [

@@ -36,7 +36,7 @@ class CreateNewsTable extends Migration
                 ->default(0);
             $table->unsignedbigInteger('dislikes')
                 ->default(0);
-            $table->string('img', 255);
+            $table->string('img', 255)->nullable();
             $table->text('body')
                 ->comment('Тело Новости HTML');
             $table->boolean('is_private')

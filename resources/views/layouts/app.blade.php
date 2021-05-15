@@ -21,6 +21,8 @@
     <link href="{{ asset('css/style_1.css') }}" rel="stylesheet" type="text/css"/>
     <!-- Montserrat -->
 
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
+          integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link href="{{ asset ('css/media_query.css') }}" rel="stylesheet" type="text/css"/>
     <link href=" {{asset ('css/bootstrap.css') }}" rel="stylesheet" type="text/css"/>
@@ -70,22 +72,28 @@
                         @endif
                     @else
                         <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->firstname }} <span class="caret"></span>
-                            </a>
-
-                            <div class="dropdown-menu dropdown-menu-right drop-static" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('login&reg.login.LogOut') }}
+                            <div style="display: flex">
+                                <img style="width: 70px; height: 70px;"
+                                     src="{{ Auth::user()->photo }}" alt="Ava">
+                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"
+                                   aria-haspopup="true" aria-expanded="false" v-pre>
+                                    {{ Auth::user()->firstname }} <span class="caret"></span>
                                 </a>
+                                <div class="dropdown-menu dropdown-menu-right drop-static" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('logout') }}"
+                                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                        {{ __('login&reg.login.LogOut') }}
+                                    </a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    @csrf
-                                </form>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                        @csrf
+                                    </form>
+                                </div>
                             </div>
+
+
+
                         </li>
                     @endguest
                 </ul>
